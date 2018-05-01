@@ -1,0 +1,21 @@
+#board {
+	height: 80vh;
+	width: 80vh;
+	border-collapse: collapse;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+
+td {
+	background-color: white;
+}
+
+.alive {
+	background-color: black;
+}
+
+.dead {
+	background-color: white;
+}
