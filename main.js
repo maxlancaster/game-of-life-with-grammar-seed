@@ -70,6 +70,11 @@ $(function() {
       controller.pulsarBoard();
     };
 
+    // handler function for the grammar 1 button
+    var grammar1ClickHandler = function(e) {
+      controller.grammar1();
+    }
+
     //register event handlers
     $('td').click(tdClickHandler);
     $("#reset").click(resetClickHandler);
@@ -78,6 +83,7 @@ $(function() {
     $("#random").click(randomBoardClickHandler);
     $("#checker").click(checkerBoardClickHandler);
     $("#pulsar").click(pulsarBoardClickHandler);
+    $("#grammar1").click(grammar1ClickHandler);
 
   };
 

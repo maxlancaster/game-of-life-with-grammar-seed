@@ -5,7 +5,7 @@
  */
 World = function() {
 	var that = Object.create(World.prototype);
-	that.size = 100;
+	that.size = 50;
 
 	// useful helper function to construct a new, empty board
 	var construct_board = function() {

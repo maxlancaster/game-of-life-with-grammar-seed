@@ -8,6 +8,8 @@ var Controller = function() {
   // Iteration ID of the game. Used for play/pause actions
   var game_iteration_id;
 
+  var fps, fpsInterval, then, now, startTime;
+
   /**
    * Public method for resetting the world.
    */
@@ -55,7 +57,12 @@ var Controller = function() {
   *  Public method for resuming/starting execution of the simulation
   */
   that.play = function() {
-    game_iteration_id = window.requestAnimationFrame(update);
+    fps = 10;
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    update();
+    // game_iteration_id = window.requestAnimationFrame(update);
     change_play_button("hidden");
     change_pause_button("visible");
   };
@@ -106,6 +113,34 @@ var Controller = function() {
       rowIdx++;
     });
   };
+
+  that.grammar1 = function() {
+    that.resetWorld();
+    var rowIdx = 0;
+    world.board.forEach(function(row) {
+      var colIdx = 0;
+      if (rowIdx % 3 === 2) {
+        var isHorizontal = true;
+
+      } else {
+        var isHorizontal = false;
+      }
+      row.forEach(function(cell) {
+        if (!isHorizontal) {
+          if (colIdx % 3 === 0) {
+            world.addLife(rowIdx, colIdx);
+            color_cell(rowIdx, colIdx);
+          }
+        } else if (colIdx % 3 !== 0) {
+            world.addLife(rowIdx, colIdx);
+            color_cell(rowIdx, colIdx);
+        }
+        colIdx++;
+      });
+      rowIdx++;
+    });
+
+  }
 
   /**
   * Generate a board with 20 pulsars
@@ -222,31 +257,60 @@ var Controller = function() {
     // Any live cell with more than three live neighbours dies, as if by over-population.
     // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-    var world = getWorld();
-    var copy_world = jQuery.extend(true, {}, world); // make a copy of the world so we can determine what the next generation
-    // should look like without modifying the current World
-    var rowIdx = 0;
-    var colIdx = 0;
-    copy_world.board.forEach(function(row) {
-      colIdx = 0;
-      row.forEach(function(cell) {
-        if (cell === 1) {  // alive
-          if (copy_world.neighbors[rowIdx][colIdx] < 2 || copy_world.neighbors[rowIdx][colIdx] > 3){ // cell should die
-            world.removeLife(rowIdx, colIdx);
-          }
-        } else { // dead
-          if (copy_world.neighbors[rowIdx][colIdx] === 3) { // cell should come back to life
-            world.addLife(rowIdx, colIdx);
-          }
-        }
-        colIdx++;
-      });
-      rowIdx++;
-    });
+    now = Date.now();
+    elapsed = now - then;
 
-    redrawWorld();
+    // var world = getWorld();
+    // var copy_world = jQuery.extend(true, {}, world); // make a copy of the world so we can determine what the next generation
+    // // should look like without modifying the current World
+    // var rowIdx = 0;
+    // var colIdx = 0;
+    // copy_world.board.forEach(function(row) {
+    //   colIdx = 0;
+    //   row.forEach(function(cell) {
+    //     if (cell === 1) {  // alive
+    //       if (copy_world.neighbors[rowIdx][colIdx] < 2 || copy_world.neighbors[rowIdx][colIdx] > 3){ // cell should die
+    //         world.removeLife(rowIdx, colIdx);
+    //       }
+    //     } else { // dead
+    //       if (copy_world.neighbors[rowIdx][colIdx] === 3) { // cell should come back to life
+    //         world.addLife(rowIdx, colIdx);
+    //       }
+    //     }
+    //     colIdx++;
+    //   });
+    //   rowIdx++;
+    // });
+
     // move to the next generation
     game_iteration_id = window.requestAnimationFrame(update);
+
+    if (elapsed > fpsInterval) {
+      then = now - (elapsed % fpsInterval);
+      var world = getWorld();
+      var copy_world = jQuery.extend(true, {}, world); // make a copy of the world so we can determine what the next generation
+      // should look like without modifying the current World
+      var rowIdx = 0;
+      var colIdx = 0;
+      copy_world.board.forEach(function(row) {
+        colIdx = 0;
+        row.forEach(function(cell) {
+          if (cell === 1) {  // alive
+            if (copy_world.neighbors[rowIdx][colIdx] < 2 || copy_world.neighbors[rowIdx][colIdx] > 3){ // cell should die
+              world.removeLife(rowIdx, colIdx);
+            }
+          } else { // dead
+            if (copy_world.neighbors[rowIdx][colIdx] === 3) { // cell should come back to life
+              world.addLife(rowIdx, colIdx);
+            }
+          }
+          colIdx++;
+        });
+        rowIdx++;
+      });
+      redrawWorld();
+    }
+
   };
   // Freeze object to prevent modification.
   Object.freeze(that);

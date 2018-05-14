@@ -8,15 +8,29 @@
     <table id="board">
       
     </table>
-    <div class="buttons-container">
-      <button id="reset">Reset</button>
-      <button id="pause">Pause</button>
-      <button id="play">Play</button>
-    </div>
-    <div class="boards-container">
-      <ul><a id="random" href="javaScript:void(0);">Random Board</a></ul>
-      <ul><a id="checker" href="javaScript:void(0);">Checker Board</a></ul>
-      <ul><a id="pulsar" href="javaScript:void(0);">Pulsar Board</a></ul>
+    </body>
+    <div id="container">
+      <!-- <div id="welcome">
+        <p>Welcome to Conway's Game of Life. Here are the rules: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+      Any live cell with two or three live neighbours lives on to the next generation.
+      Any live cell with more than three live neighbours dies, as if by over-population.
+      Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+      Select a grammar by clicking on one of the sets of rules below. Once you select a rule, you'll get to choose a different computation of that rule to use as a seed to the game. Click squares to bring them to life or kill them off.</p>
+      </div> -->
+      <div id="gameoflife-controls">
+        <p>Game of Life Controls</p>
+        <div class="buttons-container">
+          <button id="pause">Pause</button>
+          <button id="reset">Clear</button>
+          <button id="play">Play</button>
+        </div>
+      </div>
+      <div id="grammars">
+        <ul><a id="grammar1" href="javaScript:void(0);">grammar 1</a></ul>
+        <ul><a id="checker" href="javaScript:void(0);">grammar 2</a></ul>
+        <ul><a id="pulsar" href="javaScript:void(0);">grammar 3</a></ul>
+      </div>
+      <div id="clear"></div>
     </div>
     <!-- end content -->
 
