@@ -114,7 +114,7 @@ var Controller = function() {
     });
   };
 
-  that.grammar1 = function() {
+  that.ladderBoard = function() {
     that.resetWorld();
     var rowIdx = 0;
     world.board.forEach(function(row) {
@@ -139,76 +139,26 @@ var Controller = function() {
       });
       rowIdx++;
     });
-
   }
 
-  /**
-  * Generate a board with 20 pulsars
-  */
-  that.pulsarBoard = function() {
+  that.snakeBoard = function() {
     that.resetWorld();
-    var original_points = [[10,10], [9,10], [8,10], [10, 5], [9,5], [8,5], [14,10], [15,10], [16,10], [14,5], [15,5], [16,5], [14,12], [15,12], [16,12],
-                  [14,17], [15,17], [16,17], [10,17], [9,17], [8,17], [10,12], [9,12], [8,12], [6,9], [6,8], [6,7], [11,9], [11,8], [11,7], [13,9], 
-                  [13,8], [13,7], [18,9], [18,8], [18,7], [6,13], [6,14], [6,15], [11,13], [11,14], [11,15], [13,13], [13,14], [13,15], [18,13], 
-                  [18,14], [18,15]];
-
-    original_points.forEach(function(point) {
-      world.addLife(point[0],point[1]);
-      color_cell(point[0], point[1]);
-      world.addLife(point[0]+20,point[1]);
-      color_cell(point[0]+20, point[1]);
-      world.addLife(point[0]+40,point[1]);
-      color_cell(point[0]+40, point[1]);
-      world.addLife(point[0]+60,point[1]);
-      color_cell(point[0]+60, point[1]);
-      world.addLife(point[0]+80,point[1]);
-      color_cell(point[0]+80, point[1]);
-
-      world.addLife(point[0],point[1]+20);
-      color_cell(point[0], point[1]+20);
-      world.addLife(point[0]+20,point[1]+20);
-      color_cell(point[0]+20, point[1]+20);
-      world.addLife(point[0]+40,point[1]+20);
-      color_cell(point[0]+40, point[1]+20);
-      world.addLife(point[0]+60,point[1]+20);
-      color_cell(point[0]+60, point[1]+20);
-      world.addLife(point[0]+80,point[1]+20);
-      color_cell(point[0]+80, point[1]+20);
-
-      world.addLife(point[0],point[1]+40);
-      color_cell(point[0], point[1]+40);
-      world.addLife(point[0]+20,point[1]+40);
-      color_cell(point[0]+20, point[1]+40);
-      world.addLife(point[0]+40,point[1]+40);
-      color_cell(point[0]+40, point[1]+40);
-      world.addLife(point[0]+60,point[1]+40);
-      color_cell(point[0]+60, point[1]+40);
-      world.addLife(point[0]+80,point[1]+40);
-      color_cell(point[0]+80, point[1]+40);
-
-      world.addLife(point[0],point[1]+60);
-      color_cell(point[0], point[1]+60);
-      world.addLife(point[0]+20,point[1]+60);
-      color_cell(point[0]+20, point[1]+60);
-      world.addLife(point[0]+40,point[1]+60);
-      color_cell(point[0]+40, point[1]+60);
-      world.addLife(point[0]+60,point[1]+60);
-      color_cell(point[0]+60, point[1]+60);
-      world.addLife(point[0]+80,point[1]+60);
-      color_cell(point[0]+80, point[1]+60);
-
-      world.addLife(point[0],point[1]+80);
-      color_cell(point[0], point[1]+80);
-      world.addLife(point[0]+20,point[1]+80);
-      color_cell(point[0]+20, point[1]+80);
-      world.addLife(point[0]+40,point[1]+80);
-      color_cell(point[0]+40, point[1]+80);
-      world.addLife(point[0]+60,point[1]+80);
-      color_cell(point[0]+60, point[1]+80);
-      world.addLife(point[0]+80,point[1]+80);
-      color_cell(point[0]+80, point[1]+80);
+    var rowIdx = 0;
+    var offset = -1;
+    world.board.forEach(function(row) {
+      if (rowIdx % 3 === 0) {
+        world.addLife(rowIdx, rowIdx);
+        color_cell(rowIdx, rowIdx);
+        world.addLife(rowIdx, rowIdx + 1);
+        color_cell(rowIdx, rowIdx + 1);
+        offset+=3;
+      } else if (offset < world.board.length) {
+        world.addLife(rowIdx, offset);
+        color_cell(rowIdx, offset);
+      }
+      rowIdx++;
     });
-  };
+  }
 
   // helper function for getting the current World object
   var getWorld = function() {

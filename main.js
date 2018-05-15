@@ -19,7 +19,8 @@ $(function() {
     for (var i = 0; i < GOL_model.size; i++) {
       var row = table.insertRow(i);
       for (var j = 0; j < GOL_model.size; j++) {
-        row.insertCell(j);
+        var cell = row.insertCell(j);
+        cell.className = "GOLtd"
       }
     }
 
@@ -65,25 +66,26 @@ $(function() {
       controller.checkerBoard();
     };
 
-    // handler function for the pulsar board button
-    var pulsarBoardClickHandler = function(e) {
-      controller.pulsarBoard();
-    };
-
     // handler function for the grammar 1 button
-    var grammar1ClickHandler = function(e) {
-      controller.grammar1();
+    var ladderClickHandler = function(e) {
+      controller.ladderBoard();
     }
 
+    // handler function for the grammar 2 button
+    var snakeClickHandler = function(e) {
+      controller.snakeBoard();
+    }
+
+
     //register event handlers
-    $('td').click(tdClickHandler);
+    $('.GOLtd').click(tdClickHandler);
     $("#reset").click(resetClickHandler);
     $("#play").click(playClickHandler);
     $("#pause").click(pauseClickHandler);
     $("#random").click(randomBoardClickHandler);
     $("#checker").click(checkerBoardClickHandler);
-    $("#pulsar").click(pulsarBoardClickHandler);
-    $("#grammar1").click(grammar1ClickHandler);
+    $("#ladder").click(ladderClickHandler);
+    $("#snake").click(snakeClickHandler);
 
   };
 

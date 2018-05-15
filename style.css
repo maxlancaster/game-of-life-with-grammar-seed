@@ -5,6 +5,22 @@
 	float: left;
 }
 
+.rule {
+	max-width:300px;
+	height:auto;
+}
+
+.computation {
+	text-align: center;
+
+}
+
+.computation img {
+	max-width:150px;
+	height:auto;
+	cursor: pointer;
+}
+
 table, th, td {
    border: 1px solid black;
 }
