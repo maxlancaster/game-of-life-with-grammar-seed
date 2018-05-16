@@ -205,84 +205,136 @@ var Controller = function() {
     var isHorizontal = true;
     var edge = world.board.length;
 
-    // while (num_iterations > 0) {
+    while (num_iterations > 0) {
+      // console.log("on iteration " + num_iterations);
+      console.log(current_location);
       var x = current_location[0];
       var y = current_location[1];
       if (isHorizontal) {
+        // current shape is horizontal
         var options = [];
         // lower right
         if ((x+1 < edge) && (y+1 < edge) && (x+2 < edge) && (!world.hasLife(x+1, y+1)) && (!world.hasLife(x+2, y+1))) {
           options.push("LR");
-          // world.addLife(x+1, y+1);
-          // color_cell(x+1, y+1);
-          // world.addLife(x+2, y+1);
-          // color_cell(x+2, y+1);
         }
         // lower left
         if ((x+1 < edge) && (y-2 < edge && y-2 >= 0) && (x+2 < edge) && (!world.hasLife(x+1, y-2)) && (!world.hasLife(x+2, y-2))) {
           options.push("LL");
-          // world.addLife(x+1, y+1);
-          // color_cell(x+1, y+1);
-          // world.addLife(x+2, y+1);
-          // color_cell(x+2, y+1);
         }
         // upper left
         if ((x-1 < edge && x-1 >= 0) && (y-2 < edge && y-2 >= 0) && (x-2 < edge && x-2 >= 0) && (!world.hasLife(x-1, y-2)) && (!world.hasLife(x-2, y-2))) {
           options.push("UL");
-          // world.addLife(x+1, y+1);
-          // color_cell(x+1, y+1);
-          // world.addLife(x+2, y+1);
-          // color_cell(x+2, y+1);
         }
         // upper right
         if ((x-1 < edge && x-1 >= 0) && (y+1 < edge) && (x-2 < edge && x-2 >= 0) && (!world.hasLife(x-1, y+1)) && (!world.hasLife(x-2, y+1))) {
           options.push("UR");
-          // world.addLife(x+1, y+1);
-          // color_cell(x+1, y+1);
-          // world.addLife(x+2, y+1);
-          // color_cell(x+2, y+1);
         }
         // randomly select next location to apply rule
         var num_options = options.length;
-        var random_index = Math.floor(Math.random() * (num_options));
-        var random_option = options[random_index];
+        if (num_options > 0) {
+          // next location exists
+          var random_index = Math.floor(Math.random() * (num_options));
+          var random_option = options[random_index];
 
-        if (random_option === "LR") {
-          world.addLife(x+1, y+1);
-          color_cell(x+1, y+1);
-          world.addLife(x+2, y+1);
-          color_cell(x+2, y+1);
-        } else if (random_option === "LL") {
-          world.addLife(x+1, y-2);
-          color_cell(x+1, y-2);
-          world.addLife(x+2, y-2);
-          color_cell(x+2, y-2);
-        } else if (random_option === "UL") {
-          world.addLife(x-1, y-2);
-          color_cell(x-1, y-2);
-          world.addLife(x-2, y-2);
-          color_cell(x-2, y-2);
-        } else if (random_option === "UR") {
-          world.addLife(x-1, y+1);
-          color_cell(x-1, y+1);
-          world.addLife(x-2, y+1);
-          color_cell(x-2, y+1);
+          if (random_option === "LR") {
+            world.addLife(x+1, y+1);
+            color_cell(x+1, y+1);
+            world.addLife(x+2, y+1);
+            color_cell(x+2, y+1);
+            current_location = [x+2, y+1];
+          } else if (random_option === "LL") {
+            world.addLife(x+1, y-2);
+            color_cell(x+1, y-2);
+            world.addLife(x+2, y-2);
+            color_cell(x+2, y-2);
+            current_location = [x+2, y-2];
+          } else if (random_option === "UL") {
+            world.addLife(x-1, y-2);
+            color_cell(x-1, y-2);
+            world.addLife(x-2, y-2);
+            color_cell(x-2, y-2);
+            current_location = [x-1, y-2];
+          } else if (random_option === "UR") {
+            world.addLife(x-1, y+1);
+            color_cell(x-1, y+1);
+            world.addLife(x-2, y+1);
+            color_cell(x-2, y+1);
+            current_location = [x-1, y+1];
+          }
+          console.log("options = " + options);
+          console.log("selected = " + random_option);
+        } else {
+          // next location does not exist
+          // break for now, figure out what to do later
+          console.log("got stuck in horizontal");
+          console.log("current location= " + current_location);
+          break;
         }
-        console.log(options);
       } else {
+        // current shape is vertical
+        var options = [];
         // lower right
-
+        if ((x+1 < edge) && (y+1 < edge) && (y+2 < edge) && (!world.hasLife(x+1, y+1)) && (!world.hasLife(x+1, y+2))) {
+          options.push("LR");
+        }
         // lower left
-
+        if ((x+1 < edge) && (y-1 < edge && y-1 >= 0) && (y-2 < edge && y-2 >= 0) && (!world.hasLife(x+1, y-1)) && (!world.hasLife(x+1, y-2))) {
+          options.push("LL");
+        }
         // upper left
-
+        if ((x-2 < edge && x-2 >= 0) && (y-2 < edge && y-2 >= 0) && (y-1 < edge && y-1 >= 0) && (!world.hasLife(x-2, y-1)) && (!world.hasLife(x-2, y-2))) {
+          options.push("UL");
+        }
         // upper right
+        if ((x-2 < edge && x-2 >= 0) && (y+1 < edge) && (y+2 < edge && y+2 >= 0) && (!world.hasLife(x-2, y+1)) && (!world.hasLife(x-2, y+2))) {
+          options.push("UR");
+        }
+        // randomly select next location to apply rule
+        var num_options = options.length;
+        if (num_options > 0) {
+          // next location exists
+          var random_index = Math.floor(Math.random() * (num_options));
+          var random_option = options[random_index];
+
+          if (random_option === "LR") {
+            world.addLife(x+1, y+1);
+            color_cell(x+1, y+1);
+            world.addLife(x+1, y+2);
+            color_cell(x+1, y+2);
+            current_location = [x+1, y+2];
+          } else if (random_option === "LL") {
+            world.addLife(x+1, y-1);
+            color_cell(x+1, y-1);
+            world.addLife(x+1, y-2);
+            color_cell(x+1, y-2);
+            current_location = [x+1, y-1];
+          } else if (random_option === "UL") {
+            world.addLife(x-2, y-1);
+            color_cell(x-2, y-1);
+            world.addLife(x-2, y-2);
+            color_cell(x-2, y-2);
+            current_location = [x-2, y-1];
+          } else if (random_option === "UR") {
+            world.addLife(x-2, y+1);
+            color_cell(x-2, y+1);
+            world.addLife(x-2, y+2);
+            color_cell(x-2, y+2);
+            current_location = [x-2, y+2];
+          }
+          console.log("options = " + options);
+          console.log("selected = " + random_option);
+        } else {
+          // next location does not exist
+          // break for now, figure out what to do later
+          console.log("got stuck in vertical");
+          console.log("current location= " + current_location);
+          break;
+        }
       }
 
-      // current_location =
       isHorizontal = !isHorizontal;
       num_iterations--;
-    // }
+    }
   };
 
   // helper function for getting the current World object
