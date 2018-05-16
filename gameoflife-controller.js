@@ -139,7 +139,7 @@ var Controller = function() {
       });
       rowIdx++;
     });
-  }
+  };
 
   that.snakeBoard = function() {
     that.resetWorld();
@@ -147,18 +147,143 @@ var Controller = function() {
     var offset = -1;
     world.board.forEach(function(row) {
       if (rowIdx % 3 === 0) {
-        world.addLife(rowIdx, rowIdx);
-        color_cell(rowIdx, rowIdx);
-        world.addLife(rowIdx, rowIdx + 1);
-        color_cell(rowIdx, rowIdx + 1);
-        offset+=3;
+        if (rowIdx+1 < world.board.length) {
+          world.addLife(rowIdx, rowIdx);
+          color_cell(rowIdx, rowIdx);
+          world.addLife(rowIdx, rowIdx + 1);
+          color_cell(rowIdx, rowIdx + 1);
+          offset+=3;
+        }
       } else if (offset < world.board.length) {
         world.addLife(rowIdx, offset);
         color_cell(rowIdx, offset);
       }
       rowIdx++;
     });
-  }
+  };
+
+  that.crossBoard = function() {
+    that.resetWorld();
+    var rowIdx = 0;
+    world.board.forEach(function(row) {
+      var colIdx = 0;
+      row.forEach(function(cell) {
+      if ((rowIdx % 5 === 0) && (colIdx % 5 === 0)) {
+        world.addLife(rowIdx, colIdx);
+        color_cell(rowIdx, colIdx);
+      } else if (rowIdx % 5 === 1 && (colIdx % 5 === 1 || colIdx % 5 === 4)) {
+        world.addLife(rowIdx, colIdx);
+        color_cell(rowIdx, colIdx);
+      } else if ((rowIdx % 5 === 2 || rowIdx % 5 === 3) && (colIdx % 5 === 2 || colIdx % 5 === 3)) {
+        world.addLife(rowIdx, colIdx);
+        color_cell(rowIdx, colIdx);
+      } else if (rowIdx % 5 === 4 && (colIdx % 5 === 1 || colIdx % 5 === 4)) {
+        world.addLife(rowIdx, colIdx);
+        color_cell(rowIdx, colIdx);
+      }
+      colIdx++;
+      });
+      rowIdx++;
+    });
+  };
+
+  that.randomRule1 = function() {
+    console.log("randomrule1");
+  };
+
+  that.randomRule2 = function() {
+    that.resetWorld();
+
+    //set up initial shape
+    world.addLife(0,0);
+    color_cell(0,0);
+    world.addLife(0,1);
+    color_cell(0,1);
+
+    var current_location = [0,1];
+    var num_iterations = 100;
+    var isHorizontal = true;
+    var edge = world.board.length;
+
+    // while (num_iterations > 0) {
+      var x = current_location[0];
+      var y = current_location[1];
+      if (isHorizontal) {
+        var options = [];
+        // lower right
+        if ((x+1 < edge) && (y+1 < edge) && (x+2 < edge) && (!world.hasLife(x+1, y+1)) && (!world.hasLife(x+2, y+1))) {
+          options.push("LR");
+          // world.addLife(x+1, y+1);
+          // color_cell(x+1, y+1);
+          // world.addLife(x+2, y+1);
+          // color_cell(x+2, y+1);
+        }
+        // lower left
+        if ((x+1 < edge) && (y-2 < edge && y-2 >= 0) && (x+2 < edge) && (!world.hasLife(x+1, y-2)) && (!world.hasLife(x+2, y-2))) {
+          options.push("LL");
+          // world.addLife(x+1, y+1);
+          // color_cell(x+1, y+1);
+          // world.addLife(x+2, y+1);
+          // color_cell(x+2, y+1);
+        }
+        // upper left
+        if ((x-1 < edge && x-1 >= 0) && (y-2 < edge && y-2 >= 0) && (x-2 < edge && x-2 >= 0) && (!world.hasLife(x-1, y-2)) && (!world.hasLife(x-2, y-2))) {
+          options.push("UL");
+          // world.addLife(x+1, y+1);
+          // color_cell(x+1, y+1);
+          // world.addLife(x+2, y+1);
+          // color_cell(x+2, y+1);
+        }
+        // upper right
+        if ((x-1 < edge && x-1 >= 0) && (y+1 < edge) && (x-2 < edge && x-2 >= 0) && (!world.hasLife(x-1, y+1)) && (!world.hasLife(x-2, y+1))) {
+          options.push("UR");
+          // world.addLife(x+1, y+1);
+          // color_cell(x+1, y+1);
+          // world.addLife(x+2, y+1);
+          // color_cell(x+2, y+1);
+        }
+        // randomly select next location to apply rule
+        var num_options = options.length;
+        var random_index = Math.floor(Math.random() * (num_options));
+        var random_option = options[random_index];
+
+        if (random_option === "LR") {
+          world.addLife(x+1, y+1);
+          color_cell(x+1, y+1);
+          world.addLife(x+2, y+1);
+          color_cell(x+2, y+1);
+        } else if (random_option === "LL") {
+          world.addLife(x+1, y-2);
+          color_cell(x+1, y-2);
+          world.addLife(x+2, y-2);
+          color_cell(x+2, y-2);
+        } else if (random_option === "UL") {
+          world.addLife(x-1, y-2);
+          color_cell(x-1, y-2);
+          world.addLife(x-2, y-2);
+          color_cell(x-2, y-2);
+        } else if (random_option === "UR") {
+          world.addLife(x-1, y+1);
+          color_cell(x-1, y+1);
+          world.addLife(x-2, y+1);
+          color_cell(x-2, y+1);
+        }
+        console.log(options);
+      } else {
+        // lower right
+
+        // lower left
+
+        // upper left
+
+        // upper right
+      }
+
+      // current_location =
+      isHorizontal = !isHorizontal;
+      num_iterations--;
+    // }
+  };
 
   // helper function for getting the current World object
   var getWorld = function() {

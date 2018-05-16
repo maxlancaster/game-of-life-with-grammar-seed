@@ -66,14 +66,29 @@ $(function() {
       controller.checkerBoard();
     };
 
-    // handler function for the grammar 1 button
+    // handler function for the ladder button
     var ladderClickHandler = function(e) {
       controller.ladderBoard();
     }
 
-    // handler function for the grammar 2 button
+    // handler function for the snake button
     var snakeClickHandler = function(e) {
       controller.snakeBoard();
+    }
+
+    // handler function for the cross button
+    var crossClickHandler = function(e) {
+      controller.crossBoard();
+    }
+
+     // handler function for the random rule 1 button
+    var randomRule1ClickHandler = function(e) {
+      controller.randomRule1();
+    }
+
+    // handler function for the random rule 2 button
+    var randomRule2ClickHandler = function(e) {
+      controller.randomRule2();
     }
 
 
@@ -86,6 +101,10 @@ $(function() {
     $("#checker").click(checkerBoardClickHandler);
     $("#ladder").click(ladderClickHandler);
     $("#snake").click(snakeClickHandler);
+    $("#crosses").click(crossClickHandler);
+
+    $("#random_rule1").click(randomRule1ClickHandler);
+    $("#random_rule2").click(randomRule2ClickHandler);
 
   };
 

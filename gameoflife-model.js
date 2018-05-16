@@ -5,7 +5,7 @@
  */
 World = function() {
 	var that = Object.create(World.prototype);
-	that.size = 50;
+	that.size = 51;
 
 	// useful helper function to construct a new, empty board
 	var construct_board = function() {
@@ -78,6 +78,13 @@ World = function() {
 	that.reset = function() {
 		that.board = construct_board();
 	};
+
+	/**
+   	* Public method for checking if a cell is alive
+   */
+	that.hasLife = function(x, y) {
+		return that.board[x][y] === 1;
+	}
 
 	// freeze object to prevent modification. resetting the game requires creating a new World object
 	Object.freeze(that);

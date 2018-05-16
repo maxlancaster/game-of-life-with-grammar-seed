@@ -7,6 +7,7 @@
     <!-- begin content -->
     <div id="welcome">
       <h1>Conway's Game of Life</h1>
+      <h3>Seeded by Basic 2D Grammars</h3>
         <!-- <p>Welcome to Conway's Game of Life. Here are the rules: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
       Any live cell with two or three live neighbours lives on to the next generation.
       Any live cell with more than three live neighbours dies, as if by over-population.
@@ -18,14 +19,6 @@
     </table>
     </body>
     <div id="container">
-      <div id="gameoflife-controls">
-        <p>Controls</p>
-        <div class="buttons-container">
-          <button id="pause">Pause</button>
-          <button id="reset">Clear</button>
-          <button id="play">Play</button>
-        </div>
-      </div>
       <div id="grammars">
         <table id="rules">
           <tr>
@@ -47,13 +40,24 @@
             <td class="computation"><img id="crosses" src="images/crosses.png"></td>
             <td class="computation"><img id="snake" src="images/snake.png"></td>
           </tr>
+          <tr>
+            <td><a href="#" id="random_rule1">Random X Iterations of Rule 1</a></td>
+            <td><a href="#" id="random_rule2">Random X Iterations of Rule 2</a></td>
+          </tr>
           <!-- <ul><a id="grammar1" href="javaScript:void(0);">grammar 1</a></ul>
           <ul><a id="random" href="javaScript:void(0);">Random Board</a></ul>
           <ul><a id="grammar2" href="javaScript:void(0);">grammar 2</a></ul>
           <ul><a id="checker" href="javaScript:void(0);">Checker Board</a></ul> -->
         </table>
+        <div id="gameoflife-controls">
+          <p>Controls</p>
+          <div class="buttons-container">
+            <button id="pause">Pause</button>
+            <button id="reset">Clear</button>
+            <button id="play">Play</button>
+          </div>
+        </div>
       </div>
-      <div id="clear"></div>
     </div>
     <!-- end content -->
 
