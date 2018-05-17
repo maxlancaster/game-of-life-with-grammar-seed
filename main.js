@@ -24,6 +24,15 @@ $(function() {
       }
     }
 
+    $("#select_computation").hide();
+    $("#rule1_presets").hide();
+    $("#rule2_presets").hide();
+    $("#OR").hide();
+    $("#manual_edits").hide();
+    // $("#click_play").hide();
+
+    var rule;
+
     // handler function for when a user clicks on a cell in the world
     var tdClickHandler = function(e) {
       var row = $(this).parent().children().index($(this));
@@ -31,7 +40,7 @@ $(function() {
 
       if ($(this).css('backgroundColor') === 'rgb(255, 255, 255)') {
         // cell was white, change to black and add a life to the world
-        $(this).css('backgroundColor', 'black');
+        $(this).css('backgroundColor', 'green');
         controller.addLife(col,row);
       } else {
         // cell was black, change to white and remove a life from the world
@@ -44,67 +53,127 @@ $(function() {
     // handler function for the reset button
     var resetClickHandler = function(e) {
       controller.resetWorld();
+      playPauseClickHandler("Pause");
     };
 
     // handler function for the play button
-    var playClickHandler = function(e) {
-      controller.play();
-    };
-
-    // handler function for the pause button
-    var pauseClickHandler = function(e) {
-      controller.pause();
-    };
-
-    // handler function for the random board button
-    var randomBoardClickHandler = function(e) {
-      controller.randomBoard();
+    var playPauseClickHandler = function(playOrPause) {
+      if (playOrPause === "Pause") {
+        $("#playPause").html("Play");
+        controller.pause();
+      } else if (playOrPause === "Play") {
+        $("#playPause").html("Pause");
+        controller.play();
+      } else if ($("#playPause").text() === "Play") {
+        $("#playPause").html("Pause");
+        controller.play();
+      } else {
+        $("#playPause").html("Play");
+        controller.pause();
+      }
     };
 
     // handler function for the checker board button
     var checkerBoardClickHandler = function(e) {
+      $("#crosses_background").css('border', 'none');
+      $("#checker_background").css('border', "solid 2px lightgreen");
+      $("#manual_edits").show();
+      playPauseClickHandler("Pause");
       controller.checkerBoard();
     };
 
+    // handler function for the cross button
+    var crossClickHandler = function(e) {
+      $("#checker_background").css('border', 'none');
+      $("#crosses_background").css('border', "solid 2px lightgreen");
+      $("#manual_edits").show();
+      playPauseClickHandler("Pause");
+      controller.crossBoard();
+    }
+
     // handler function for the ladder button
     var ladderClickHandler = function(e) {
+      $("#snake_background").css('border', 'none');
+      $("#ladder_background").css('border', "solid 2px lightgreen");
+      $("#manual_edits").show();
+      playPauseClickHandler("Pause");
       controller.ladderBoard();
     }
 
     // handler function for the snake button
     var snakeClickHandler = function(e) {
+      $("#ladder_background").css('border', 'none');
+      $("#snake_background").css('border', "solid 2px lightgreen");
+      $("#manual_edits").show();
+      playPauseClickHandler("Pause");
       controller.snakeBoard();
     }
 
-    // handler function for the cross button
-    var crossClickHandler = function(e) {
-      controller.crossBoard();
-    }
-
      // handler function for the random rule 1 button
-    var randomRule1ClickHandler = function(e) {
-      controller.randomRule1();
+    var randomComputationClickHandler = function(e) {
+      $("#checker_background").css('backgroundColor', 'white');
+      $("#crosses_background").css('backgroundColor', 'white');
+      $("#ladder_background").css('backgroundColor', 'white');
+      $("#snake_background").css('backgroundColor', 'white');
+      $("#manual_edits").show();
+      playPauseClickHandler("Pause");
+      controller.randomComputation(rule);
     }
 
-    // handler function for the random rule 2 button
-    var randomRule2ClickHandler = function(e) {
-      controller.randomRule2();
+    // handler function for the rule 1 button
+    var rule1ClickHandler = function(e) {
+      $("#rule2").css('border', 'none');
+      $("#rule1").css('border', "solid 2px lightgreen");
+      // $("#rule2_highlight").css('backgroundColor', 'white');
+      // $("#rule1_highlight").css('backgroundColor', 'lightgreen');
+      $("#select_computation").show();
+      if (rule === "rule2") {
+        $("#checker_background").css('backgroundColor', 'white');
+        $("#crosses_background").css('backgroundColor', 'white');
+      }
+      $("#rule2_presets").hide();
+      $("#rule1_presets").show();
+      $("#OR").show();
+      playPauseClickHandler("Pause");
+      rule = "rule1";
     }
 
+    // handler function for the rule 2 button
+    var rule2ClickHandler = function(e) {
+      $("#rule1").css('border', 'none');
+      $("#rule2").css('border', "solid 2px lightgreen");
+      // $("#rule1_highlight").css('backgroundColor', 'white');
+      // $("#rule2_highlight").css('backgroundColor', 'lightgreen');
+      $("#select_computation").show();
+      if (rule === "rule1") {
+        $("#ladder_background").css('backgroundColor', 'white');
+        $("#snake_background").css('backgroundColor', 'white');
+      }
+      $("#rule1_presets").hide();
+      $("#rule2_presets").show();
+      $("#OR").show();
+      playPauseClickHandler("Pause");
+      rule = "rule2";
+    }
 
-    //register event handlers
+    // register event handlers
+    // game and control buttons
     $('.GOLtd').click(tdClickHandler);
+    $("#playPause").click(playPauseClickHandler);
     $("#reset").click(resetClickHandler);
-    $("#play").click(playClickHandler);
-    $("#pause").click(pauseClickHandler);
-    $("#random").click(randomBoardClickHandler);
+
+    // preset computations
     $("#checker").click(checkerBoardClickHandler);
     $("#ladder").click(ladderClickHandler);
     $("#snake").click(snakeClickHandler);
     $("#crosses").click(crossClickHandler);
 
-    $("#random_rule1").click(randomRule1ClickHandler);
-    $("#random_rule2").click(randomRule2ClickHandler);
+    // random computation
+    $("#random_computation").click(randomComputationClickHandler);
+
+    // rules
+    $("#rule1").click(rule1ClickHandler);
+    $("#rule2").click(rule2ClickHandler);
 
   };
 
@@ -127,22 +196,6 @@ $(function() {
     td.className = "dead";
   };
 
-  // helper method that takes as input the value that the play button should
-  // take as it's style.visibility field. expects showOrHide to be either 
-  // 'hidden' or 'visible'
-  change_play_button = function(showOrHide) {
-    document.getElementById("play").style.visibility = showOrHide;
-  };
-
-  // helper method that takes as input the value that the pause button should
-  // take as it's style.visibility field. expects showOrHide to be either 
-  // 'hidden' or 'visible'
-  change_pause_button = function(showOrHide) {
-    document.getElementById("pause").style.visibility = showOrHide;
-  };
-
   // install the widget
   GameOfLife_install(world);
-  change_pause_button("hidden");
-
 })

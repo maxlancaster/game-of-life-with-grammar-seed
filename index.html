@@ -14,51 +14,49 @@
       Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
       Select a grammar by clicking on one of the sets of rules below. Once you select a rule, you'll get to choose a different computation of that rule to use as a seed to the game. Click squares to bring them to life or kill them off.</p> -->
     </div>
-    <table id="board">
-      
-    </table>
-    </body>
     <div id="container">
       <div id="grammars">
         <table id="rules">
           <tr>
-            <th>Rule 1</th>
-            <th>Rule 2</th>
+            <td rowspan="2"><h2>step 1</h2></td>
+            <th id="select_rule" colspan="2"><h2>select a rule</h2></th>
           </tr>
-          <tr>
-            <th><img class="rule" src="images/rule1.jpg"></th>
-            <th><img class="rule" src="images/rule2.jpg"></th>
+          <tr id="rules">
+            <th class="rule"><img id="rule1" src="images/rule1.jpg"></th>
+            <th class="rule"><img id="rule2" src="images/rule2.jpg"></th>
           </tr>
-          <tr>
-            <th colspan="2">Select a Computation</th>
+          <tr id="select_computation">
+            <td rowspan="3"><h2>step 2</h2></td>
+            <th colspan="2"><h2>select a preset computation</h2></th>
           </tr>
-          <tr>
-            <td class="computation"><img id="checker" src="images/checkerboard.png"></td>
-            <td class="computation"><img id="ladder" src="images/ladder.png"></td>
+          <tr id="rule1_presets">
+            <th class="computation" id="checker_background"><img id="checker" src="images/checkerboard.png"></th>
+            <th class="computation" id="crosses_background"><img id="crosses" src="images/crosses.png"></th>
           </tr>
-          <tr>
-            <td class="computation"><img id="crosses" src="images/crosses.png"></td>
-            <td class="computation"><img id="snake" src="images/snake.png"></td>
+          <tr id="rule2_presets">
+            <th class="computation" id="snake_background"><img id="snake" src="images/snake.png"></th>
+            <th class="computation" id="ladder_background"><img id="ladder" src="images/ladder.png"></th>
           </tr>
-          <tr>
-            <td><a href="#" id="random_rule1">Random X Iterations of Rule 1</a></td>
-            <td><a href="#" id="random_rule2">Random X Iterations of Rule 2</a></td>
+          <tr id="OR">
+            <th colspan="2"><h2><a href="#" id="random_computation">or try 100 random iterations</a></h2></th>
           </tr>
-          <!-- <ul><a id="grammar1" href="javaScript:void(0);">grammar 1</a></ul>
-          <ul><a id="random" href="javaScript:void(0);">Random Board</a></ul>
-          <ul><a id="grammar2" href="javaScript:void(0);">grammar 2</a></ul>
-          <ul><a id="checker" href="javaScript:void(0);">Checker Board</a></ul> -->
+          <tr id="manual_edits">
+            <td rowspan="1"><h2>step 3</h2></td>
+            <th colspan="2"><h2>click the gameboard to make manual edits</h2></th>
+          </tr>
         </table>
-        <div id="gameoflife-controls">
-          <p>Controls</p>
-          <div class="buttons-container">
-            <button id="pause">Pause</button>
-            <button id="reset">Clear</button>
-            <button id="play">Play</button>
-          </div>
+        <div id="controls">
+          <button id="playPause">Play</button><button id="reset">Clear</button>
         </div>
+<!--         <div>Welcome to Conway's Game of Life. Here are the rules: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
+      Any live cell with two or three live neighbours lives on to the next generation.
+      Any live cell with more than three live neighbours dies, as if by over-population.
+      Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+      Select a grammar by clicking on one of the sets of rules below. Once you select a rule, you'll get to choose a different computation of that rule to use as a seed to the game. Click squares to bring them to life or kill them off.
+        </div> -->
       </div>
     </div>
+    <table id="board"></table>
     <!-- end content -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

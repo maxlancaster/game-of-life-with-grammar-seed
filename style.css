@@ -1,11 +1,39 @@
 #board {
 	height: 90vh;
 	width: 90vh;
+	margin-left: 100px;
 	/*border-collapse: collapse;*/
 	float: left;
 }
 
+#board {
+   border: 3px solid black;
+}
+
+#grammars {
+	margin-top: 5%;
+	margin-left: 100px;
+	float: left;
+}
+
+#rules {
+	border: 3px solid black;
+	/*border-collapse: collapse;*/
+}
+
+#rules td {
+	border-right: 3px solid black;
+}
+
+#controls {
+	text-align: center;
+}
+
 .rule {
+	cursor: pointer;
+}
+
+.rule img {
 	max-width:300px;
 	height:auto;
 }
@@ -19,10 +47,6 @@
 	max-width:150px;
 	height:auto;
 	cursor: pointer;
-}
-
-table, th, td {
-   border: 1px solid black;
 }
 
 td {

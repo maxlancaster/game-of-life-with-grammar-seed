@@ -49,8 +49,6 @@ var Controller = function() {
   */
   that.pause = function() {
     window.cancelAnimationFrame(game_iteration_id);
-    change_play_button("visible");
-    change_pause_button("hidden");
   };
 
   /**
@@ -62,9 +60,6 @@ var Controller = function() {
     then = Date.now();
     startTime = then;
     update();
-    // game_iteration_id = window.requestAnimationFrame(update);
-    change_play_button("hidden");
-    change_pause_button("visible");
   };
 
   /**
@@ -187,27 +182,100 @@ var Controller = function() {
     });
   };
 
-  that.randomRule1 = function() {
-    console.log("randomrule1");
-  };
+  that.randomComputation = function(rule) {
+    if (rule === "rule1") {
+      randomComputationRule1();
+    } else {
+      randomComputationRule2();
+    }
+  }
 
-  that.randomRule2 = function() {
+  var randomComputationRule1 = function() {
     that.resetWorld();
 
     //set up initial shape
-    world.addLife(0,0);
-    color_cell(0,0);
-    world.addLife(0,1);
-    color_cell(0,1);
+    world.addLife(25,25);
+    color_cell(25,25);
 
-    var current_location = [0,1];
+    var current_location = [25,25];
+    var num_iterations = 100;
+    var edge = world.board.length;
+
+    while (num_iterations > 0) {
+      // console.log(current_location);
+      var x = current_location[0];
+      var y = current_location[1];
+      var options = [];
+      // lower right
+      if ((x+1 < edge) && (y+1 < edge) && (!world.hasLife(x+1, y+1))) {
+        options.push("LR");
+      }
+      // lower left
+      if ((x+1 < edge) && (y-1 < edge && y-1 >= 0) && (!world.hasLife(x+1, y-1))) {
+        options.push("LL");
+      }
+      // upper left
+      if ((x-1 < edge && x-1 >= 0) && (y-1 < edge && y-1 >= 0) && (!world.hasLife(x-1, y-1))) {
+        options.push("UL");
+      }
+      // upper right
+      if ((x-1 < edge && x-1 >= 0) && (y+1 < edge) && (!world.hasLife(x-1, y+1))) {
+        options.push("UR");
+      }
+      // randomly select next location to apply rule
+      console.log(options);
+      var num_options = options.length;
+      if (num_options > 0) {
+        // next location exists
+        var random_index = Math.floor(Math.random() * (num_options));
+        var random_option = options[random_index];
+
+        if (random_option === "LR") {
+          world.addLife(x+1, y+1);
+          color_cell(x+1, y+1);
+          current_location = [x+1, y+1];
+        } else if (random_option === "LL") {
+          world.addLife(x+1, y-1);
+          color_cell(x+1, y-1);
+          current_location = [x+1, y-1];
+        } else if (random_option === "UL") {
+          world.addLife(x-1, y-1);
+          color_cell(x-1, y-1);
+          current_location = [x-1, y-1];
+        } else if (random_option === "UR") {
+          world.addLife(x-1, y+1);
+          color_cell(x-1, y+1);
+          current_location = [x-1, y+1];
+        }
+        // console.log("options = " + options);
+        // console.log("selected = " + random_option);
+      } else {
+        // next location does not exist
+        // break for now, figure out what to do later
+        // console.log("got stuck in horizontal");
+        // console.log("current location= " + current_location);
+        break;
+      }
+      num_iterations--;
+    }
+  };
+
+  var randomComputationRule2 = function() {
+    that.resetWorld();
+
+    //set up initial shape
+    world.addLife(25,24);
+    color_cell(25,24);
+    world.addLife(25,25);
+    color_cell(25,25);
+
+    var current_location = [25,25];
     var num_iterations = 100;
     var isHorizontal = true;
     var edge = world.board.length;
 
     while (num_iterations > 0) {
-      // console.log("on iteration " + num_iterations);
-      console.log(current_location);
+      // console.log(current_location);
       var x = current_location[0];
       var y = current_location[1];
       if (isHorizontal) {
@@ -261,13 +329,13 @@ var Controller = function() {
             color_cell(x-2, y+1);
             current_location = [x-1, y+1];
           }
-          console.log("options = " + options);
-          console.log("selected = " + random_option);
+          // console.log("options = " + options);
+          // console.log("selected = " + random_option);
         } else {
           // next location does not exist
           // break for now, figure out what to do later
-          console.log("got stuck in horizontal");
-          console.log("current location= " + current_location);
+          // console.log("got stuck in horizontal");
+          // console.log("current location= " + current_location);
           break;
         }
       } else {
@@ -321,13 +389,13 @@ var Controller = function() {
             color_cell(x-2, y+2);
             current_location = [x-2, y+2];
           }
-          console.log("options = " + options);
-          console.log("selected = " + random_option);
+          // console.log("options = " + options);
+          // console.log("selected = " + random_option);
         } else {
           // next location does not exist
           // break for now, figure out what to do later
-          console.log("got stuck in vertical");
-          console.log("current location= " + current_location);
+          // console.log("got stuck in vertical");
+          // console.log("current location= " + current_location);
           break;
         }
       }
