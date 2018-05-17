@@ -223,7 +223,6 @@ var Controller = function() {
         options.push("UR");
       }
       // randomly select next location to apply rule
-      console.log(options);
       var num_options = options.length;
       if (num_options > 0) {
         // next location exists

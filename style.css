@@ -1,6 +1,6 @@
 #board {
-	height: 90vh;
-	width: 90vh;
+	height: 85vh;
+	width: 85vh;
 	margin-left: 100px;
 	/*border-collapse: collapse;*/
 	float: left;
@@ -34,7 +34,7 @@
 }
 
 .rule img {
-	max-width:300px;
+	max-width: 250px;
 	height:auto;
 }
 
@@ -44,8 +44,8 @@
 }
 
 .computation img {
-	max-width:150px;
-	height:auto;
+	width: auto;
+	max-height:125px;
 	cursor: pointer;
 }
 
