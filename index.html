@@ -6,7 +6,7 @@
   <body>
     <!-- begin content -->
     <div id="welcome">
-      <h1>Conway's Game of Life</h1>
+      <h1>Exploring Urbanization with Conway's Game of Life<br>and 2D Shape Grammars</h1>
         <!-- <p>Welcome to Conway's Game of Life. Here are the rules: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
       Any live cell with two or three live neighbours lives on to the next generation.
       Any live cell with more than three live neighbours dies, as if by over-population.
@@ -17,16 +17,20 @@
       <div id="grammars">
         <table id="rules">
           <tr>
-            <td rowspan="2"><h2>step 1</h2></td>
-            <th id="select_rule" colspan="2"><h2>select a rule</h2></th>
+            <td rowspan="3"><h2>step 1</h2></td>
+            <th id="select_rule" colspan="2"><h2>select a city type</h2></th>
           </tr>
-          <tr id="rules">
+          <tr>
+            <th>Metropolis</th>
+            <th>Suburbia</th>
+          </tr>
+          <tr id="rules_row">
             <th class="rule"><img id="rule1" src="images/rule1.jpg"></th>
             <th class="rule"><img id="rule2" src="images/rule2.jpg"></th>
           </tr>
           <tr id="select_computation">
             <td rowspan="3"><h2>step 2</h2></td>
-            <th colspan="2"><h2>select a preset computation</h2></th>
+            <th colspan="2"><h2>select a preset layout</h2></th>
           </tr>
           <tr id="rule1_presets">
             <th class="computation" id="checker_background"><img id="checker" src="images/checkerboard.png"></th>
@@ -45,14 +49,9 @@
           </tr>
         </table>
         <div id="controls">
-          <button id="playPause">Play</button><button id="reset">Clear</button>
+          <a href="#" class="button3" id="playPause">Play</a>
+          <a href="#" class="button3" id="reset">Clear</a>
         </div>
-<!--         <div>Welcome to Conway's Game of Life. Here are the rules: Any live cell with fewer than two live neighbours dies, as if caused by under-population.
-      Any live cell with two or three live neighbours lives on to the next generation.
-      Any live cell with more than three live neighbours dies, as if by over-population.
-      Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
-      Select a grammar by clicking on one of the sets of rules below. Once you select a rule, you'll get to choose a different computation of that rule to use as a seed to the game. Click squares to bring them to life or kill them off.
-        </div> -->
       </div>
     </div>
     <table id="board"></table>
@@ -63,5 +62,8 @@
     <!-- <script type="text/javascript" src="gameoflife-view.js"></script> -->
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="gameoflife-controller.js"></script>
+    <footer class="copyright">
+      <small>&copy Max Lancaster. All rights reserved.</small>
+    </footer>
   </body>
 </html>

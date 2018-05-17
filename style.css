@@ -1,3 +1,7 @@
+body {
+	font-family: 'Ubuntu', sans-serif;
+}
+
 #board {
 	height: 85vh;
 	width: 85vh;
@@ -6,8 +10,12 @@
 	float: left;
 }
 
+#welcome {
+	background-color: lightgray;
+}
+
 #board {
-   border: 3px solid black;
+   border: 2px solid black;
 }
 
 #grammars {
@@ -17,12 +25,19 @@
 }
 
 #rules {
-	border: 3px solid black;
-	/*border-collapse: collapse;*/
+	border: 2px solid black;
+}
+
+#rules td, th {
+	background-color: lightgray;
 }
 
 #rules td {
 	border-right: 3px solid black;
+}
+
+#rules_row {
+	border-bottom: 3px solid black;
 }
 
 #controls {
@@ -40,6 +55,7 @@
 
 .computation {
 	text-align: center;
+	background-color: white;
 
 }
 
@@ -60,3 +76,35 @@ td {
 .dead {
 	background-color: white;
 }
+
+.copyright {
+	text-align: center;
+	bottom: 10px;
+    width: 100%;
+    position: absolute;
+}
+
+a.button3{
+	display:inline-block;
+	padding:0.3em 1.2em;
+	margin:10 0.3em 0.3em 0;
+	border-radius:2em;
+	box-sizing: border-box;
+	text-decoration:none;
+	font-weight:300;
+	color:#FFFFFF;
+	background-color:#4eb5f1;
+	text-align:center;
+	transition: all 0.2s;
+}
+
+a.button3:hover{
+	background-color:#4095c6;
+}
+
+@media all and (max-width:30em){
+	a.button3{
+ 	display:block;
+ 	margin:0.2em auto;
+ }
+} 

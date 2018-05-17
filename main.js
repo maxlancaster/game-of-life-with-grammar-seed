@@ -40,11 +40,11 @@ $(function() {
 
       if ($(this).css('backgroundColor') === 'rgb(255, 255, 255)') {
         // cell was white, change to black and add a life to the world
-        $(this).css('backgroundColor', 'green');
+        color_cell(col, row);
         controller.addLife(col,row);
       } else {
         // cell was black, change to white and remove a life from the world
-        $(this).css('backgroundColor', 'white');
+        uncolor_cell(col, row);
         controller.removeLife(col,row);
       }
 
@@ -111,10 +111,10 @@ $(function() {
 
      // handler function for the random rule 1 button
     var randomComputationClickHandler = function(e) {
-      $("#checker_background").css('backgroundColor', 'white');
-      $("#crosses_background").css('backgroundColor', 'white');
-      $("#ladder_background").css('backgroundColor', 'white');
-      $("#snake_background").css('backgroundColor', 'white');
+      $("#checker_background").css('border', 'none');
+      $("#crosses_background").css('border', 'none');
+      $("#ladder_background").css('border', 'none');
+      $("#snake_background").css('border', 'none');
       $("#manual_edits").show();
       playPauseClickHandler("Pause");
       controller.randomComputation(rule);
